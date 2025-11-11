@@ -9,11 +9,11 @@ ST <- raster("ST_masked_raw.tif") # silt and clay content, %
 
 normal <- function(r) {
   name <- deparse(substitute(r))
-  # 최소 및 최대값 구하기
+  # min max values
   min_val <- min(values(r), na.rm = TRUE)
   max_val <- max(values(r), na.rm = TRUE)
   
-  # Normalize 수행
+  # Normalize
   r_normalized <- (r - min_val) / (max_val - min_val)
   writeRaster(r_normalized, file=paste0("normalized_", name, ".tif"), format="GTiff", overwrite=TRUE)
 }
@@ -572,4 +572,5 @@ park_edge_data <- combined_box %>% filter(Category == "Urban park edge")
 
 t_test_park <- t.test(UGCI ~ EdgeType, data = park_edge_data)
 print(t_test_park)
+
 
